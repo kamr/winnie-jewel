@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {injectStripe, CardElement, Elements} from 'react-stripe-elements';
+import {injectStripe, CardElement, Elements, StripeProvider} from 'react-stripe-elements';
 
 import STRIPE_PUBLISHABLE from '../../Constants/stripe';
 import PAYMENT_SERVER_URL from '../../Constants/server';
@@ -64,7 +64,8 @@ class _CardForm extends React.Component {
           const token_id = token.id;
           console.log(token);
           console.log(token_id);
-          axios.post(PAYMENT_SERVER_URL,
+          const url = PAYMENT_SERVER_URL + '/payment'
+          axios.post(url,
             {
               source: token_id,
               currency: "USD",
@@ -119,12 +120,14 @@ class Checkout extends React.Component {
   render() {
     const {elementFontSize} = this.state;
     return (
-      <div className="Checkout">
-        <h1>Available Elements</h1>
-        <Elements>
-          <CardForm fontSize={elementFontSize} />
-        </Elements>
-      </div>
+      <StripeProvider apiKey="pk_test_zgUxPsuel1lgED4695WkRu7q">
+        <div className="Checkout">
+          <h1>Checkout</h1>
+          <Elements>
+            <CardForm fontSize={elementFontSize} />
+          </Elements>
+        </div>
+      </StripeProvider>
     );
   }
 }

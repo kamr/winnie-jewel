@@ -1,17 +1,48 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import NavBar from './Components/Navigation/NavBar';
+import Content from './Content'
 
-import Shop from './Components/Shop/Shop';
+const styles = {
+  root: {
+    flexGrow: 1,
+    height: 440,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+  }
+};
 
-class App extends Component {
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentTab: 0
+    };
+  }
+
+  changeTab(tab) {
+    this.setState({
+      currentTab: tab
+    });
+  }
+
   render() {
+    const { classes } = this.props;
+
     return (
-      <div className="App">
-        <Shop />
+      <div className={classes.root}>
+        <NavBar
+          changeTab = {this.changeTab.bind(this)}
+          currentTab = {this.state.currentTab}
+        />
+        <Content/>
       </div>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);

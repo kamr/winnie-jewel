@@ -1,8 +1,38 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { BrowserRouter } from 'react-router-dom'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+        main: '#FFFFFF'
+    },
+    secondary: {
+      main: '#000000'
+    },
+    background: {
+      default: '#FFFFFF'
+    }
+  },
+  status: {
+    danger: 'orange',
+  },
+  spacing: {
+    unit: 2
+  }
+});
+
+render(
+  <BrowserRouter>
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
+  </BrowserRouter>,
+  document.getElementById('root')
+);
 registerServiceWorker();
