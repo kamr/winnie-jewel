@@ -4,8 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import PAYMENT_SERVER_URL from '../../Constants/server';
 
-const styles = {
+import Product from './Product'
 
+const styles = {
+  root: {
+    // width: '100%',
+    // height: '100%',
+    // backgroundColor: 'red'
+  }
 };
 
 class ProductBox extends React.Component {
@@ -17,12 +23,22 @@ class ProductBox extends React.Component {
     }
   }
 
-  // api call in DID or WILL mount
-  componentWillMount() {
+  componentDidMount() {
+    this.updateProducts();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.collection !== this.props.collection) {
+      this.updateProducts();
+    }
+  }
+
+  updateProducts() {
     const url = PAYMENT_SERVER_URL + '/product/getProducts';
+    const collection = this.props.collection
     axios.get(url, {
       params: {
-        collection: "seasons"
+        collection: collection
       }
     })
     .then(res => {
@@ -34,17 +50,23 @@ class ProductBox extends React.Component {
   }
 
   render () {
-    const prods = []
-    this.state.products.forEach(function(p, i) {
-      prods.push(
-        <div>{p.name}</div>
+    const classes = this.props.classes;
+
+    const products = this.state.products
+    const productDisplay = []
+    for (var i = 0, len = products.length; i < len; i++) {
+      const productName = products[i]['name']
+      productDisplay.push(
+        <Product
+          name={productName}
+          key={i}
+        />
       );
-    })
+    }
 
     return (
-      <div>
-        Product Box!
-        {prods}
+      <div className={classes.root}>
+        {productDisplay}
       </div>
     );
   }

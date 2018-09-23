@@ -6,29 +6,23 @@ import Content from './Content'
 const styles = {
   root: {
     flexGrow: 1,
-    height: 440,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
   }
 };
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentTab: 0
-    };
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     currentTab: false
+  //   };
+  // }
 
-  changeTab(tab) {
-    this.setState({
-      currentTab: tab
-    });
-  }
+  // changeTab(tab) {
+  //   this.setState({
+  //     currentTab: tab
+  //   });
+  // }
 
   render() {
     const { classes } = this.props;
@@ -36,8 +30,8 @@ class App extends React.Component {
     return (
       <div className={classes.root}>
         <NavBar
-          changeTab = {this.changeTab.bind(this)}
-          currentTab = {this.state.currentTab}
+          // changeTab={this.changeTab.bind(this)}
+          // currentTab={this.state.currentTab}
         />
         <Content/>
       </div>

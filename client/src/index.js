@@ -8,6 +8,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+  mixins: {
+    toolbar: {
+      minHeight: '64px'
+    }
+  },
   palette: {
     primary: {
         main: '#FFFFFF'
@@ -24,6 +29,9 @@ const theme = createMuiTheme({
   },
   spacing: {
     unit: 2
+  },
+  typography: {
+    "fontFamily": "Roboto, Helvetica, Arial, sans-serif"
   }
 });
 
