@@ -21,16 +21,24 @@ TabContainer.propTypes = {
 
 const styles = theme => ({
   tabs: {
-
   },
   tab: {
+    opacity: '1',
+  },
+  label: {
+    // color: '#555',
     boxShadow: 'none',
-    opacity: 1,
     '&:hover': {
+      // color: '#000',
       backgroundColor: 'none',
-      color: '#000000',
       boxShadow: 'none'
     }
+  },
+  selectedTab: {
+    color: 'red'
+  },
+  none: {
+
   },
   bigIndicator: {
     height: 4
@@ -39,9 +47,6 @@ const styles = theme => ({
 
 class WebNavBar extends React.Component {
 
-  // constructor(props) {
-  //   super(props)
-  // }
 
   render() {
     const classes = this.props.classes;
@@ -51,7 +56,7 @@ class WebNavBar extends React.Component {
       tabs.push(
         <Tab
           disableRipple
-          label={collection}
+          label={<span className={classes.label}>{collection}</span>}
           className={classes.tab}
           component={NavLink}
           to={'/shop/' + collection}

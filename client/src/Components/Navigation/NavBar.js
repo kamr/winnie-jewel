@@ -8,25 +8,50 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import { NavLink } from 'react-router-dom';
 
 import WebNavBar from './WebNavBar'
 import MobileDrawer from './MobileDrawer'
 
 import axios from 'axios';
-import PAYMENT_SERVER_URL from '../../Constants/server';
+import SERVER_URL from '../../Constants/server';
 
 const styles = theme => ({
   appBar: {
     // position: 'absolute',
     // marginLeft: 0,
-    // boxShadow: 'none'
+    boxShadow: 'none',
     borderTop: '8px solid black'
+  },
+  badge: {
+    top: -8,
+    right: -7,
+    // The border color match the background color.
+    // border: "1px solid white",
+    // backgroundColor: "#2196f3",
+    backgroundColor: '#000',
+    color: "white",
+    height: '17px',
+    width: '17px'
+    // fontFamily: "Roboto",
   },
   navIconHide: {
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+    position: 'absolute'
+  },
+  cartButton: {
+    // margin: theme.spacing.unit * 2,
+    // position: 'absolute',
+    backgroundColor: 'none',
+    boxShadow: 'none',
+    '&:hover': {
+      // backgroundColor: '#FFF',
+      boxShadow: 'none'
+    }
   },
   title: {
     margin: '0 auto',
@@ -53,7 +78,7 @@ class NavBar extends React.Component {
   }
 
   componentWillMount() {
-    const url = PAYMENT_SERVER_URL + '/product/getCollections';
+    const url = SERVER_URL + '/product/getCollections';
     axios.get(url)
       .then(res => {
         const collections = res.data;
@@ -89,39 +114,34 @@ class NavBar extends React.Component {
   render() {
     const { classes } = this.props;
 
+    const maybeDisplayBadge = this.props.shoppingCartSize === 0 ? (<ShoppingCart/>) : (
+      <Badge badgeContent={this.props.shoppingCartSize} color="primary" classes={{badge: classes.badge }}>
+        <ShoppingCart />
+      </Badge>
+    );
+
     return (
       <div className={classes.root}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.navIconHide}
-            >
+            <IconButton disableRipple color="inherit" aria-label="Open drawer" onClick={this.handleDrawerToggle} className={classes.navIconHide}>
               <MenuIcon />
             </IconButton>
             <div className={classes.title}>
-              <Typography
-                variant="display1"
-                color="inherit"
-                align="center"
-                noWrap
-              >
-                <NavLink
-                  to="/"
-                  className={classes.titleText}
-                >
+              <Typography variant="display1" color="inherit" align="center" noWrap>
+                <NavLink to="/" className={classes.titleText}>
                   WINNIE
                 </NavLink>
               </Typography>
             </div>
+            <NavLink to="/checkout">
+              <IconButton color="secondary" aria-label="Go to cart" className={classes.cartButton}>
+                {maybeDisplayBadge}
+              </IconButton>
+            </NavLink>
           </Toolbar>
           <Hidden xsDown implementation="css">
-            <WebNavBar
-              currentTab={this.state.currentTab}
-              collections={this.state.collections}
-            />
+            <WebNavBar currentTab={this.state.currentTab} collections={this.state.collections}/>
           </Hidden>
         </AppBar>
         <Hidden smUp>

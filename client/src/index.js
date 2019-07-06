@@ -31,7 +31,7 @@ const theme = createMuiTheme({
     unit: 2
   },
   typography: {
-    "fontFamily": "Roboto, Helvetica, Arial, sans-serif"
+    // fontFamily: "Montserrat, sans-serif",
   }
 });
 

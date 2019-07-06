@@ -3,9 +3,9 @@ import axios from 'axios';
 import {injectStripe, CardElement, Elements, StripeProvider} from 'react-stripe-elements';
 
 import STRIPE_PUBLISHABLE from '../../Constants/stripe';
-import PAYMENT_SERVER_URL from '../../Constants/server';
+import SERVER_URL from '../../Constants/server';
 
-import './Checkout.css'
+import './Payment.css'
 
 
 const handleBlur = () => {
@@ -64,7 +64,7 @@ class _CardForm extends React.Component {
           const token_id = token.id;
           console.log(token);
           console.log(token_id);
-          const url = PAYMENT_SERVER_URL + '/payment'
+          const url = SERVER_URL + '/payment'
           axios.post(url,
             {
               source: token_id,
@@ -99,7 +99,7 @@ class _CardForm extends React.Component {
 }
 const CardForm = injectStripe(_CardForm);
 
-class Checkout extends React.Component {
+class Payment extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -121,8 +121,8 @@ class Checkout extends React.Component {
     const {elementFontSize} = this.state;
     return (
       <StripeProvider apiKey="pk_test_zgUxPsuel1lgED4695WkRu7q">
-        <div className="Checkout">
-          <h1>Checkout</h1>
+        <div className="Payment">
+          <h1>Payment</h1>
           <Elements>
             <CardForm fontSize={elementFontSize} />
           </Elements>
@@ -132,4 +132,4 @@ class Checkout extends React.Component {
   }
 }
 
-export default Checkout;
+export default Payment;
