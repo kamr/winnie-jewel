@@ -21,7 +21,7 @@ class PreviewBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: {}
     }
   }
 
@@ -55,9 +55,7 @@ class PreviewBox extends React.Component {
     const classes = this.props.classes;
     const products = this.state.products
     const productDisplay = []
-    console.log("products", products)
-    for (const productId of products) {
-      console.log(productId)
+    for (const productId in products) {
       const product = products[productId]
       productDisplay.push(
         <Grid

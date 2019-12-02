@@ -130,7 +130,7 @@ class NavBar extends React.Component {
             <div className={classes.title}>
               <Typography variant="display1" color="inherit" align="center" noWrap>
                 <NavLink to="/" className={classes.titleText}>
-                  WINNIE
+                  MYSTIC GOLD
                 </NavLink>
               </Typography>
             </div>
